@@ -29,6 +29,7 @@
   "dependencies": {
     "@material-ui/core": "^4.8.3",
     "@material-ui/icons": "^4.5.1",
+    "@snadeau/crx3-webpack-plugin": "github:snadeau/crx3-webpack-plugin",
     "axios": "0.21.1"
   }
 }
