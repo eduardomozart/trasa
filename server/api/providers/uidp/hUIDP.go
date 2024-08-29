@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/go-chi/chi"
@@ -100,7 +101,12 @@ func UpdateIdp(w http.ResponseWriter, r *http.Request) {
 		// If it fails, return invalid detail response.
 		if idp.IdpName == "ad" {
 			//fullUserPath := fmt.Sprintf("CN=%s,%s", idp.ClientID, idp.IdpMeta)
-			err := BindLdap(idp.ClientID, idp.ClientSecret, idp.Endpoint)
+			fullUserPath := idp.ClientID
+			isUserEmail := strings.Contains(idp.ClientID, "@")
+			if !isUserEmail {
+				fullUserPath = fmt.Sprintf("%s@%s", idp.ClientID, idp.Endpoint)
+			}
+			err := BindLdap(fullUserPath, idp.ClientSecret, idp.Endpoint)
 			if err != nil {
 				logger.Error(err)
 				utils.TrasaResponse(w, 200, "failed", err.Error(), "Could not update IDP", nil)

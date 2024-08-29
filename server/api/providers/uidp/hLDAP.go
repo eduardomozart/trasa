@@ -52,7 +52,10 @@ func ImportLdapUsers(w http.ResponseWriter, r *http.Request) {
 	ldapBindUsername := fmt.Sprintf("uid=%s,%s", idpDetail.ClientID, idpDetail.IdpMeta)
 	if idpDetail.IdpName == "ad" {
 		//ldapBindUsername = fmt.Sprintf("CN=%s,%s", idpDetail.ClientID, idpDetail.IdpMeta)
-		ldapBindUsername = idpDetail.ClientID
+		isUserEmail := strings.Contains(idpDetail.ClientID, "@")
+		if !isUserEmail {
+			ldapBindUsername = fmt.Sprintf("%s@%s", idpDetail.ClientID, idpDetail.Endpoint)
+		}
 	}
 
 	// search and import users in ldap
@@ -129,8 +132,6 @@ func searchLdap(l *ldap.Conn, query string, queryFields []string) (*ldap.SearchR
 }
 
 func bindSearchImportLdapUsers(uc models.UserContext, uname, pass, domain, searchquery, idpName string) ([]models.UserWithPass, error) {
-
-	logrus.Debug(uname, pass, domain, searchquery, idpName)
 
 	var lus = make([]models.UserWithPass, 0)
 

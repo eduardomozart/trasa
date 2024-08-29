@@ -4,6 +4,7 @@ import (
 	"encoding/hex"
 	"fmt"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/seknox/trasa/server/global"
@@ -268,7 +269,10 @@ func CheckPassword(userDetails *models.UserWithPass, email, password string) (re
 		fullUserPath := fmt.Sprintf("uid=%s,%s", email, idp.IdpMeta)
 		if userDetails.IdpName == "ad" {
 			//fullUserPath = fmt.Sprintf("CN=%s, %s", email, idp.IdpMeta)
-			fullUserPath = email
+			isUserEmail := strings.Contains(email, "@")
+			if !isUserEmail {
+				fullUserPath = fmt.Sprintf("%s@%s", email, idp.Endpoint)
+			}
 		}
 
 		err = uidp.BindLdap(fullUserPath, password, idp.Endpoint)
