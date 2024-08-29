@@ -2,12 +2,14 @@ FROM golang:1.14 as gobuilder
 
 WORKDIR /go/src/seknox/trasa
 
-COPY go.mod .
-COPY go.sum .
+RUN git clone https://github.com/eduardomozart/trasa .
+
+#COPY go.mod .
+#COPY go.sum .
 
 RUN go mod download
 
-COPY server server
+#COPY server server
 WORKDIR /go/src/seknox/trasa/server
 
 RUN go build
@@ -19,13 +21,17 @@ WORKDIR /trasa
 ENV PATH /trasa/node_modules/.bin:$PATH
 
 # install app dependencies
-COPY dashboard/package.json ./
-RUN yarn install --silent
+#COPY dashboard/package.json ./
+#RUN yarn install --silent
+COPY --from=gobuilder /go/src/seknox/trasa/dashboard ./
+RUN npm install --legacy-peer-deps
 
-COPY dashboard ./
+#COPY dashboard ./
 
 
-RUN yarn run build
+#RUN yarn run build
+RUN export NODE_OPTIONS=--openssl-legacy-provider
+RUN npm run build
 
 FROM ubuntu:xenial-20200706
 
@@ -38,6 +44,6 @@ RUN update-ca-certificates
 COPY --from=gobuilder /go/src/seknox/trasa/server/server .
 COPY --from=dashbuilder /trasa/build /var/trasa/dashboard
 COPY --from=seknox/guacd:v0.0.1 /usr/local/guacamole/bin/guacenc /usr/local/guacamole/bin/guacenc
-COPY build/etc/trasa /etc/trasa
-COPY build/docker/wait-for-it.sh .
+COPY --from=gobuilder /go/src/seknox/trasa/build/etc/trasa /etc/trasa
+COPY --from=gobuilder /go/src/seknox/trasa/build/docker/wait-for-it.sh .
 CMD ["/trasa/wait-for-it.sh","db:5432", "--","/trasa/server"]
