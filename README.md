@@ -77,7 +77,7 @@ We encourage to checkout <a href="https://www.trasagate.com/docs"><strong>TRASA 
 
 ### Support and discussion forum
 
-Join our [discourse server](https://github.com/eduardomozart/trasa/discussions).
+Join our [discussion forum](https://github.com/eduardomozart/trasa/discussions).
 
 ### Blog
 
