@@ -153,7 +153,7 @@ export default function ConsoleMenu(props: ConsoleMenuProps) {
               <Grid item xs={12}>
                 <Button variant="contained" color="primary" onClick={props.CtrlAltDel}>
                   {' '}
-                  Ctrl+alt-Del{' '}
+                  Ctrl+Alt-Del{' '}
                 </Button>
               </Grid>
             </Grid>

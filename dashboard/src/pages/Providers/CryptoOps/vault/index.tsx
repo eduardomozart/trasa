@@ -422,7 +422,7 @@ export function ShowTokens(props: showTokenProps) {
 
               <Grid item xs={1} sm={1} md={1}>
                 <Button variant="contained" color="secondary" onClick={props.handleClose}>
-                  CLose
+                  Close
                 </Button>
               </Grid>
             </Grid>
