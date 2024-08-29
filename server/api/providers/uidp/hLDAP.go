@@ -100,7 +100,12 @@ func BindLdap(uname, pass, domain string) error {
 		InsecureSkipVerify: true,
 	}
 
-	l, err := ldap.DialTLS("tcp", fmt.Sprintf("%s:%d", domain, 636), tc)
+	domain, port, found := strings.Cut(domain, ":")
+	if !found {
+		port = "636"
+	}
+
+	l, err := ldap.DialTLS("tcp", fmt.Sprintf("%s:%s", domain, port), tc)
 	if err != nil {
 		return err
 	}
@@ -140,7 +145,12 @@ func bindSearchImportLdapUsers(uc models.UserContext, uname, pass, domain, searc
 		InsecureSkipVerify: true,
 	}
 
-	l, err := ldap.DialTLS("tcp", fmt.Sprintf("%s:%d", domain, 636), tc)
+	domain, port, found := strings.Cut(domain, ":")
+	if !found {
+		port = "636"
+	}
+
+	l, err := ldap.DialTLS("tcp", fmt.Sprintf("%s:%s", domain, port), tc)
 	if err != nil {
 		return nil, err
 	}
