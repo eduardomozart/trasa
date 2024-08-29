@@ -2,18 +2,20 @@ package connect
 
 import (
 	"fmt"
+	"io/ioutil"
+	"os"
+	"os/exec"
+	"path/filepath"
+	"runtime"
+
 	"github.com/mholt/archiver"
 	"github.com/seknox/trasa/cli/api"
 	"github.com/seknox/trasa/cli/config"
 	logger "github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
-	"io/ioutil"
-	"os"
-	"os/exec"
-	"path/filepath"
 )
 
-//Auth will authenticate and download ssh certificate
+// Auth will authenticate and download ssh certificate
 func Auth(trasaID string, newTrasaID bool) (certPath string) {
 
 	var err error
@@ -40,7 +42,19 @@ func Auth(trasaID string, newTrasaID bool) (certPath string) {
 		return
 	}
 
-	extCommCmd := exec.Command("/usr/local/bin/trasaExtNative", "get", pubKey, trasaID, config.Context.TRASA_URL)
+	trasaExtNative := ""
+	switch runtime.GOOS {
+	case "darwin":
+		trasaExtNative = "/usr/local/bin/trasaWrkstnAgent"
+	case "linux":
+		trasaExtNative = "/usr/local/bin/trasaWrkstnAgent"
+	case "windows":
+		trasaExtNative = "C:\\Program Files\\trasaWrkstnAgent\\trasaWrkstnAgent.exe"
+	default:
+		trasaExtNative = "trasaWrkstnAgent"
+	}
+
+	extCommCmd := exec.Command(trasaExtNative, "get", pubKey, trasaID, config.Context.TRASA_URL)
 	out, err := extCommCmd.CombinedOutput()
 	if err != nil {
 		logger.Debug(err)
