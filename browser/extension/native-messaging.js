@@ -33,18 +33,19 @@ async function GetDeviceHygiene(pubKey) {
 
   let message = { intent: 'getHygiene', data: getHygieneReq };
 
-  var sending = browser.runtime.sendNativeMessage('trasaWrkstnAgent', message);
-  let resp = await sending.then(rcvd, onErr);
-  // console.log('resp: ', JSON.parse(resp))
-  return JSON.parse(resp);
+  chrome.runtime.sendNativeMessage('trasawrkstnagent', message, function(resp) {
+    if (!browser.runtime.lastError) {
+      // console.log('resp: ', JSON.parse(resp))
+      return JSON.parse(resp.data);
+    } else {
+      onError(browser.runtime.lastError)
+    }
+  });
+  
 }
 
 function onErr(e) {
   console.log('errr: ', e);
-}
-
-function rcvd(msg) {
-  return msg.data;
 }
 
 function onNativeMessage(message) {

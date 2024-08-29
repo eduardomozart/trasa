@@ -1,5 +1,5 @@
 {
-  "name": "trasaWrkstnAgent",
+  "name": "trasawrkstnagent",
   "description": "Native helper for TRASA browser extension.",
   "path": "C:\\Program Files\\trasaWrkstnAgent\\trasaWrkstnAgent.exe",
   "type": "stdio",

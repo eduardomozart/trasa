@@ -1,5 +1,5 @@
 Windows Registry Editor Version 5.00
 
-[HKEY_LOCAL_MACHINE\SOFTWARE\Mozilla\NativeMessagingHosts\trasaWrkstnAgent]
-@="C:\\Program Files\\trasaWrkstnAgent\\trasaWrkstnAgent.json"
+[HKEY_LOCAL_MACHINE\SOFTWARE\Mozilla\NativeMessagingHosts\trasawrkstnagent]
+@="C:\\Program Files\\trasaWrkstnAgent\\trasawrkstnagent.json"
 

@@ -91,7 +91,7 @@ export default function LoginPage(props) {
     // native message trasaWrkstnAgent to register device.
     let message = { intent: 'enrolDevice', data: enrolDeviceData };
 
-    // chrome.runtime.sendNativeMessage('trasaWrkstnAgent',
+    // chrome.runtime.sendNativeMessage('trasawrkstnagent',
     // { text: "Hello" },
     // function(response) {
     //   console.log("Received " + response);
@@ -101,30 +101,31 @@ export default function LoginPage(props) {
     //   console.error(chrome.runtime.lastError);
     // }
 
-    var sending = browser.runtime.sendNativeMessage('trasaWrkstnAgent', message);
-    let resp = await sending.then(rcvd, onError);
+    chrome.runtime.sendNativeMessage('trasawrkstnagent', message, function(resp) {
+      if (!browser.runtime.lastError) {
+        // console.log('resp: ', JSON.parse(resp))
+        let v = JSON.parse(resp.data);
+        browser.storage.local.set({
+          hosts: v.hosts,
+          trasaCore: hostName,
+          extID: v.extID,
+          loggedIn: true,
+          trasaDACom: v.trasaDACom,
+        });
 
-    if (resp.status === true) {
-      let v = JSON.parse(resp.data);
-      browser.storage.local.set({
-        hosts: v.hosts,
-        trasaCore: hostName,
-        extID: v.extID,
-        loggedIn: true,
-        trasaDACom: v.trasaDACom,
-      });
+        var sessionStore = new Object();
+        sessionStore['testhost'] = 'testsession';
+        browser.storage.local.set({ sessionStore: sessionStore });
+        props.setLoginTrue();
 
-      var sessionStore = new Object();
-      sessionStore['testhost'] = 'testsession';
-      browser.storage.local.set({ sessionStore: sessionStore });
-      props.setLoginTrue();
-
-      setLoader(false);
-    } else {
-      setError(resp.intent);
-      setFailed(true);
-      setLoader(false);
-    }
+        setLoader(false);
+      } else {
+        onError()
+        setError(resp.intent);
+        setFailed(true);
+        setLoader(false);
+      }
+    });
   }
 
   function onError(e) {
@@ -133,10 +134,6 @@ export default function LoginPage(props) {
     } else {
       console.log(e);
     }
-  }
-
-  function rcvd(msg) {
-    return msg;
   }
 
   return (
