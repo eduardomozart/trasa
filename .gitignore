@@ -508,3 +508,4 @@ MigrationBackup/
 FodyWeavers.xsd
 server/localhost.session.sql
 workstation/trasaWrkstnAgent
+cli/cli

@@ -116,7 +116,7 @@ func getHomeDirAndUID() (string, int, int, error) {
 		return "", -1, -1, err
 	}
 
-	Context.OS_USERNAME = userc.Username
+	context.OS_USERNAME = userc.Username
 	uid, err := strconv.Atoi(userc.Uid)
 	if err != nil {
 		return userc.HomeDir, -1, -1, nil
