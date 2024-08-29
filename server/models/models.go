@@ -71,7 +71,7 @@ type InitSignup struct {
 	UserID         string `json:"userID"`
 	OrgName        string `json:"orgName"`
 	PrimaryContact string `json:"primaryContact" valid:"email"`
-	UserName       string `json:"userName" valid:"alphanum"`
+	UserName       string `json:"userName" valid:"printascii,excludesall=\"[]:;0x7C=+*?<>/\\0x2C,required"`
 	FirstName      string `json:"firstName" valid:"alpha"`
 	MiddleName     string `json:"middleName" valid:"alpha"`
 	LastName       string `json:"lastName" valid:"alpha"`
@@ -588,7 +588,7 @@ type DBVersion struct {
 	CreatedOn int64  `json:"createdOn"`
 }
 
-//AdhocPermission represents a single adhoc request
+// AdhocPermission represents a single adhoc request
 type AdhocPermission struct {
 	RequestID        string   `json:"reqID"`
 	RequesterID      string   `json:"requesterID"`

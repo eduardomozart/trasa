@@ -1,6 +1,6 @@
 package models
 
-//NewEmptyUserStruct returns a empty User struct
+// NewEmptyUserStruct returns a empty User struct
 func NewEmptyUserStruct() User {
 	return User{
 		ID:         "",
@@ -20,11 +20,11 @@ func NewEmptyUserStruct() User {
 	}
 }
 
-//User Model stores behaviours related to single user
+// User Model stores behaviours related to single user
 type User struct {
 	ID         string   `json:"ID" `
 	OrgID      string   `json:"orgId"`
-	UserName   string   `json:"userName" validate:"alphanum"`
+	UserName   string   `json:"userName" validate:"printascii,excludesall=\"[]:;0x7C=+*?<>/\\0x2C,required"`
 	FirstName  string   `json:"firstName" validate:"alpha"`
 	MiddleName string   `json:"middleName" validate:"omitempty,alpha"`
 	LastName   string   `json:"lastName" validate:"alpha"`
@@ -40,14 +40,14 @@ type User struct {
 	UpdatedAt  int64
 }
 
-//UserWithPass is a user struct with password.
+// UserWithPass is a user struct with password.
 type UserWithPass struct {
 	User
 	OrgName  string `json:"orgName"` //needed for org select
 	Password string `json:"password"`
 }
 
-//CopyUserWithoutPass converts UserWithPass struct to User
+// CopyUserWithoutPass converts UserWithPass struct to User
 func CopyUserWithoutPass(user UserWithPass) User {
 	return User{
 		ID:         user.ID,
