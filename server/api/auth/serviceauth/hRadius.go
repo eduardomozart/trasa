@@ -61,7 +61,7 @@ func RadiusLogin(w radius.ResponseWriter, r *radius.Request) {
 		usernameExits := accessmap.Store.CheckIfPrivilegeExist(trasaID, service.OrgID, service.ID)
 		logrus.Trace("passthru ", service.Passthru, usernameExits)
 		if service.Passthru == true && !usernameExits {
-			w.Write(r.Response(radius.CodeAccessReject))
+			w.Write(r.Response(radius.CodeAccessAccept))
 			return
 		}
 		err = logLoginFunc(&authlog, consts.REASON_USER_NOT_FOUND, false)
