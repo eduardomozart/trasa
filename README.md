@@ -1,8 +1,8 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://www.trasa.io">
-    <img alt="TRASA" width='400' src="https://storage.googleapis.com/trasa-website-static/branding/trasa.png">
+  <a href="https://www.trasagate.com">
+    <img alt="TRASA" width='400' src="https://raw.githubusercontent.com/eduardomozart/trasa/master/website/static/img/trasa.png">
   </a>
 
   <h1 align="center"></h1>
@@ -10,23 +10,23 @@
   <h2 align="center">
    secure remote access to ssh, rdp, web and database services
     <br />
-    <a href="https://www.trasa.io/docs"><strong>Explore the docs »</strong></a>
+    <a href="https://www.trasagate.com/docs"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <!-- <a href="https://console.trasa.io">Quick Demo</a> -->
+    <!-- <a href="https://console.trasagate.com">Quick Demo</a> -->
     ·
-    <a href="https://github.com/seknox/trasa/issue">Report Bug</a>
+    <a href="https://github.com/eduardomozart/trasa/issue">Report Bug</a>
     ·
-    <a href="https://github.com/seknox/trasa/issue">Request Feature</a>
+    <a href="https://github.com/eduardomozart/trasa/issue">Request Feature</a>
   </h2> <br />
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/seknox/trasa)](https://goreportcard.com/report/github.com/seknox/trasa)
-[![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)](https://github.com/seknox/trasa/blob/master/LICENSE)
-[![Actions Status](https://github.com/seknox/trasa/workflows/Build/badge.svg?branch=master)](https://github.com/seknox/trasa/actions)
-[![Actions Status](https://github.com/seknox/trasa/workflows/Test/badge.svg?branch=master)](https://github.com/seknox/trasa/actions)
+[![Go Report Card](https://goreportcard.com/badge/github.com/eduardomozart/trasa)](https://goreportcard.com/report/github.com/eduardomozart/trasa)
+[![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)](https://github.com/eduardomozart/trasa/blob/master/LICENSE)
+[![Actions Status](https://github.com/eduardomozart/trasa/workflows/Build/badge.svg?branch=master)](https://github.com/eduardomozart/trasa/actions)
+[![Actions Status](https://github.com/eduardomozart/trasa/workflows/Test/badge.svg?branch=master)](https://github.com/eduardomozart/trasa/actions)
 
 <br />
-<img alt="TRASA" width='800' src="https://www.trasa.io/dash/access-stats.png">
+<!-- <img alt="TRASA" width='800' src="https://www.trasagate.com/dash/access-stats.png"> -->
 
 </div>
 
@@ -63,13 +63,13 @@ These features cumulatively enables **zero trust access control** security model
 
 ## Getting Started
 
-We encourage to checkout <a href="https://www.trasa.io/docs"><strong>TRASA website »</strong></a> for latest information on getting started with TRASA.
+We encourage to checkout <a href="https://www.trasagate.com/docs"><strong>TRASA website »</strong></a> for latest information on getting started with TRASA.
 
-- Concepts: [**Basic Concepts »**](https://www.trasa.io/docs/getting-started/concepts)
-- Getting Started: [**Getting Started »**](https://www.trasa.io/docs)
-- Installation: [**Installation »**](https://www.trasa.io/docs/install/installation)
-- Admin Manual: [**Admin Docs »**](https://www.trasa.io/docs)
-- User Guides: [**User Guides »**](https://www.trasa.io/docs/guides/getting-started)
+- Concepts: [**Basic Concepts »**](https://www.trasagate.com/docs/getting-started/concepts)
+- Getting Started: [**Getting Started »**](https://www.trasagate.com/docs)
+- Installation: [**Installation »**](https://www.trasagate.com/docs/install/installation)
+- Admin Manual: [**Admin Docs »**](https://www.trasagate.com/docs)
+- User Guides: [**User Guides »**](https://www.trasagate.com/docs/guides/getting-started)
 
 <!-- COMMUNITY -->
 
@@ -77,15 +77,15 @@ We encourage to checkout <a href="https://www.trasa.io/docs"><strong>TRASA websi
 
 ### Support and discussion forum
 
-Join our [discourse server](https://discuss.seknox.com).
+Join our [discourse server](https://github.com/eduardomozart/trasa/discussions).
 
 ### Blog
 
-Read our [blog](https://www.trasa.io/blog).
+Read our [blog](https://www.trasagate.com/blog).
 
 ### Contribute
 
-See [Contributing Guidelines](https://github.com/seknox/trasa/blob/master/CONTRIBUTING.md).
+See [Contributing Guidelines](https://github.com/eduardomozart/trasa/blob/master/CONTRIBUTING.md).
 
 <!-- LICENSE -->
 
