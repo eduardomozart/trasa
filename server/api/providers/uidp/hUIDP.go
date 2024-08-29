@@ -99,8 +99,8 @@ func UpdateIdp(w http.ResponseWriter, r *http.Request) {
 		// we can try binding(authenticating) ldap server with client id and secret.
 		// If it fails, return invalid detail response.
 		if idp.IdpName == "ad" {
-			fullUserPath := fmt.Sprintf("CN=%s,%s", idp.ClientID, idp.IdpMeta)
-			err := BindLdap(fullUserPath, idp.ClientSecret, idp.Endpoint)
+			//fullUserPath := fmt.Sprintf("CN=%s,%s", idp.ClientID, idp.IdpMeta)
+			err := BindLdap(idp.ClientID, idp.ClientSecret, idp.Endpoint)
 			if err != nil {
 				logger.Error(err)
 				utils.TrasaResponse(w, 200, "failed", err.Error(), "Could not update IDP", nil)
@@ -315,7 +315,7 @@ func GenerateSCIMAuthToken(w http.ResponseWriter, r *http.Request) {
 	utils.TrasaResponse(w, 200, "success", "IDPs", "GenerateSCIMAuthToken", encodedPass)
 }
 
-//ActivateOrDisableIdp enable or disable IDP
+// ActivateOrDisableIdp enable or disable IDP
 func ActivateOrDisableIdp(w http.ResponseWriter, r *http.Request) {
 	uc := r.Context().Value("user").(models.UserContext)
 
