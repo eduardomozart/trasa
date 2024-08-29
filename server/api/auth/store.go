@@ -16,20 +16,20 @@ func (s authStore) GetLoginDetails(trasaID, orgDomain string) (*models.UserWithP
 	sqlStr := ``
 
 	if isTrasaIDEmail {
-		sqlStr = `SELECT users.org_id, users.id, first_name, email, password, idp_name, user_role, status ,org.org_name
+		sqlStr = `SELECT users.org_id, users.id, first_name, email, username, password, idp_name, user_role, status, org.org_name
 				FROM users
 				JOIN org ON users.org_id=org.id
 				WHERE users.email=$1
 `
 	} else {
-		sqlStr = `SELECT users.org_id, users.id, first_name, email, password, idp_name, user_role, status ,org.org_name
+		sqlStr = `SELECT users.org_id, users.id, first_name, email, username, password, idp_name, user_role, status, org.org_name
 				FROM users
 				JOIN org ON users.org_id=org.id
 				WHERE users.username=$1`
 	}
 
 	var user models.UserWithPass
-	err := s.DB.QueryRow(sqlStr, trasaID).Scan(&user.OrgID, &user.ID, &user.FirstName, &user.Email, &user.Password, &user.IdpName, &user.UserRole, &user.Status, &user.OrgName)
+	err := s.DB.QueryRow(sqlStr, trasaID).Scan(&user.OrgID, &user.ID, &user.FirstName, &user.Email, &user.UserName, &user.Password, &user.IdpName, &user.UserRole, &user.Status, &user.OrgName)
 
 	return &user, err
 }
