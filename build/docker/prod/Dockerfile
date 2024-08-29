@@ -2,7 +2,7 @@ FROM golang:1.14 as gobuilder
 
 WORKDIR /go/src/seknox/trasa
 
-COPY ./../../../ /go/src/seknox/trasa
+COPY . /go/src/seknox/trasa
 
 #COPY go.mod .
 #COPY go.sum .
