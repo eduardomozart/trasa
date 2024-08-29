@@ -24,6 +24,9 @@ func RadiusLogin(w radius.ResponseWriter, r *radius.Request) {
 	remoteUser := rfc2865.UserName_GetString(r.Packet)
 	//logrus.Info(remoteUser)
 	usernameWithTfaMethod := strings.Split(remoteUser, ":")
+	if len(usernameWithTfaMethod) == 1 {
+		usernameWithTfaMethod = strings.Split(remoteUser, ",")
+	}
 
 	//logrus.Info(usernameWithTfaMethod)
 	trasaID := usernameWithTfaMethod[0]
