@@ -1,6 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
-const Crx3 = require('@snadeau/crx3-webpack-plugin');
+// const Crx3 = require('@snadeau/crx3-webpack-plugin');
 const pkg = require('./package.json');
 
 module.exports = {
@@ -50,7 +50,7 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production'),
     }),
-    new Crx3({
+    /* new Crx3({
       updateUrl: 'http://localhost:8000/',
       updateFilename: 'updates.xml',
       keyFile: './build.pem',
@@ -59,7 +59,7 @@ module.exports = {
       name: `${pkg.name}`,
       zip: true,
       browserVersion: '64.0.3242'
-    })
+    }) */
   ],
   // This will expose source map files so that errors will point to your
   // original source files instead of the transpiled files.

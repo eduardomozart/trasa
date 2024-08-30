@@ -1,0 +1,54 @@
+name: Build
+
+on :
+  workflow_dispatch:
+  
+  
+  push:
+    paths:
+      - "browser/**"
+      - ".github/workflows/build-browser-extension.yaml"
+    branches:
+      - master
+
+
+  pull_request:
+    paths:
+      - "browser/**"
+      - ".github/workflows/build-browser-extension.yaml"
+
+    branches:
+      - master
+jobs:
+  build-browser-extension:
+    name: Build Browser Extension
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Set up node
+        uses: actions/setup-node@v2-beta
+        with:
+          node-version: '14'
+
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Install npm packages
+        working-directory: ./browser
+        run: node install --legacy-peer-deps
+
+      - name: Build
+        #TODO treat warning as errors
+        env:
+          CI: false
+        working-directory: ./browser
+        run: npm run prod
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          path: browser/web-ext-artifacts/
+          retention-days: 1
+
+
+

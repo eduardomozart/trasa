@@ -22,12 +22,18 @@ dist
 build
 node_modules
 package-lock.json
+web-ext-artifacts
 
 #############################
 # workstation 
 #############################
 workstation.exe
 workstation/workstation
+
+#############################
+# cli
+#############################
+cli/cli
 
 #############################
 #       app      #####
@@ -507,5 +513,3 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 server/localhost.session.sql
-workstation/trasaWrkstnAgent
-cli/cli
