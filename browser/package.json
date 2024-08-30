@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack -w --display-error-details --progress --colors",
-    "prod": "web-ext build --overwrite-dest -s extension/",
+    "deploy": "web-ext build --overwrite-dest -s extension/",
     "firefox": "web-ext run -t firefox-desktop -s extension/",
     "chrome": "web-ext run -t chromium -s extension/"
   },
@@ -30,7 +30,6 @@
   "dependencies": {
     "@material-ui/core": "^4.8.3",
     "@material-ui/icons": "^4.5.1",
-    "@snadeau/crx3-webpack-plugin": "github:snadeau/crx3-webpack-plugin",
     "axios": "0.21.1"
   }
 }

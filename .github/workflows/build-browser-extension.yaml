@@ -33,20 +33,24 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
 
+      - name: Install Yarn
+        run: npm install -g yarn
+
       - name: Install npm packages
         working-directory: ./browser
-        run: npm install --legacy-peer-deps
+        run: yarn install
 
       - name: Build
         #TODO treat warning as errors
         env:
           CI: false
         working-directory: ./browser
-        run: npm run prod
+        run: yarn deploy
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
+          name: trasa.zip
           path: browser/web-ext-artifacts/
           retention-days: 1
 
