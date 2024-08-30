@@ -44,7 +44,7 @@ func main() {
 		nativeEndian = binary.LittleEndian
 	}
 
-	logrus.Debug("trasaWrkstnAgent service started. Native byte order: %v.", nativeEndian)
+	logrus.Debugf("trasaWrkstnAgent service started. Native byte order: %v.", nativeEndian)
 	read()
 	logrus.Debug("trasaWrkstnAgent service exited.")
 }
