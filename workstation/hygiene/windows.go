@@ -1,3 +1,6 @@
+//go:build windows && amd64
+// +build windows,amd64
+
 package hygiene
 
 /**
@@ -21,6 +24,7 @@ import (
 	"errors"
 	"fmt"
 	"net"
+	"os"
 	"os/exec"
 	"os/user"
 	"strconv"
@@ -28,6 +32,9 @@ import (
 
 	logger "github.com/sirupsen/logrus"
 	// "golang.org/x/sys/windows/registry"
+
+	wapi "github.com/iamacarpet/go-win64api"
+	wapiShared "github.com/iamacarpet/go-win64api/shared"
 )
 
 type DeviceWindows struct {
@@ -58,60 +65,75 @@ func (d DeviceWindows) IsAutoLoginEnabled() (bool, error) {
 	// If we reach here, it means either adminAutoLogin is not set or is set 0 value.
 	// Check regular windows password not required via net user command
 
-	userc, err := user.Current()
+	// userc, err := user.Current()
+	// if err != nil {
+	//	return false, err
+	// }
+
+	// t := strings.Split(userc.Username, `\`)
+	// username := ""
+	// if len(t) == 2 {
+	//	username = t[1]
+	// }
+
+	// c := exec.Command("net", "config", "workstation")
+	// out, err := c.CombinedOutput()
+	// if err != nil {
+	//	logger.Error("net user workstation ", err)
+	//	return false, err
+	// }
+
+	// lines := strings.Split(string(NormalizeNewlines(out)), "\n")
+
+	// domain := ""
+	// for _, line := range lines {
+	// "No" means password is not required hence auto login is enabled.
+	//	if strings.Contains(line, "Workstation domain") {
+	//		splitted := strings.Split(line, "Workstation domain")
+	//		if len(splitted) < 2 {
+	//			return false, errors.New("could not get domain")
+	//		}
+	//		domain = strings.TrimSpace(splitted[1])
+	//return true, nil
+	//	}
+	// }
+
+	// c = exec.Command(
+	//	"C:/WINDOWS/system32/cscript.exe",
+	//	`C:\\Program Files\trasaWrkstnAgent\checkpass.vbs`,
+	//	fmt.Sprintf(`/user:%s`, username),
+	//	fmt.Sprintf(`/workgroup:%s`, domain),
+	// )
+	// out, err = c.CombinedOutput()
+	// if err != nil {
+	// return false in case of error
+	//	logger.Error(err)
+	//	return false, err
+	// }
+
+	// if strings.Contains(string(out), "YES") {
+	//	return true, nil
+	// } else if strings.Contains(string(out), "NO") {
+	//	return false, nil
+	// }
+
+	// return false, errors.New("could not get password state")
+
+	// https://devblogs.microsoft.com/scripting/how-can-i-verify-that-none-of-my-local-user-accounts-have-a-blank-password/
+	currentUser, err := user.Current()
 	if err != nil {
-		return false, err
-	}
-
-	t := strings.Split(userc.Username, `\`)
-	username := ""
-	if len(t) == 2 {
-		username = t[1]
-	}
-
-	c := exec.Command("net", "config", "workstation")
-	out, err := c.CombinedOutput()
-	if err != nil {
-		logger.Errorf("net user workstation ", err)
-		return false, err
-	}
-
-	lines := strings.Split(string(NormalizeNewlines(out)), "\n")
-
-	domain := ""
-	for _, line := range lines {
-		// "No" means password is not required hence auto login is enabled.
-		if strings.Contains(line, "Workstation domain") {
-			splitted := strings.Split(line, "Workstation domain")
-			if len(splitted) < 2 {
-				return false, errors.New("could not get domain")
-			}
-			domain = strings.TrimSpace(splitted[1])
-			//return true, nil
-		}
-	}
-
-	c = exec.Command(
-		"C:/WINDOWS/system32/cscript.exe",
-		`C:\\Program Files\Fireser\checkpass.vbs`,
-		fmt.Sprintf(`/user:%s`, username),
-		fmt.Sprintf(`/workgroup:%s`, domain),
-	)
-	out, err = c.CombinedOutput()
-	if err != nil {
-		// return false in case of error
 		logger.Error(err)
-		return false, err
 	}
 
-	if strings.Contains(string(out), "YES") {
+	username := currentUser.Username
+	newpassword := ""
+
+	ok, err := wapi.ChangePassword(username, newpassword)
+	if ok {
 		return true, nil
-	} else if strings.Contains(string(out), "NO") {
+	} else {
 		return false, nil
 	}
-
-	return false, errors.New("could not get password state")
-
 }
 
 //needs admin privilege
@@ -134,28 +156,21 @@ func (d DeviceWindows) IsAutoLoginEnabled() (bool, error) {
 // }
 
 func (d DeviceWindows) IsDeviceEncrypted() (bool, error) {
-	// Fully Decrypted
-
-	c := exec.Command(`C:\\Program Files\Fireser\bitlocker-status.exe`)
-	out, err := c.Output()
-	if err != nil {
-		return false, err
+	status, err := wapi.GetBitLockerConversionStatusForDrive(os.Getenv("SystemDrive"))
+	if err == nil {
+		if status.ConversionStatus == wapiShared.FULLY_ENCRYPTED ||
+			status.ConversionStatus == wapiShared.ENCRYPTION_IN_PROGRESS {
+			return true, nil
+		}
 	}
-	str := string(NormalizeNewlines(out))
-	if strings.Contains(str, "OFF") {
-		return false, nil
-	} else if strings.Contains(str, "ON") {
-		return true, nil
-	}
-
-	return false, errors.New("Invalid output from bitlocker-status.exe")
+	return false, nil
 }
 
 func (d DeviceWindows) GetInstalledPackages() ([]string, error) {
 	return nil, errors.New("Not Supported Yet")
 }
 
-//slower
+// slower
 func getOSNameVersionFromSysinfo() (string, string, string, error) {
 	// fmt.Println("sysinfo")
 	c := exec.Command(`systeminfo`)

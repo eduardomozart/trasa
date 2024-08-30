@@ -23,6 +23,7 @@ require (
 	github.com/hashicorp/vault v1.4.2
 	github.com/hashicorp/vault/api v1.0.5-0.20200317185738-82f498082f02
 	github.com/huandu/go-sqlbuilder v1.8.0
+	github.com/iamacarpet/go-win64api v0.0.0-20211130162011-82e31fe23f80
 	github.com/jaypipes/ghw v0.6.1
 	github.com/jinzhu/now v1.1.1
 	github.com/jonboulle/clockwork v0.2.2 // indirect
@@ -39,7 +40,6 @@ require (
 	github.com/russellhaering/gosaml2 v0.6.0
 	github.com/russellhaering/goxmldsig v1.1.0
 	github.com/satori/go.uuid v1.2.1-0.20181028125025-b2ce2384e17b
-	github.com/seknox/fireser v0.0.0-20200913072715-2c8854a8f0e3
 	github.com/seknox/guacamole v0.0.0-20200729194451-d3df4ebf9f6a
 	github.com/seknox/ssh v0.0.3
 	github.com/shirou/gopsutil v2.20.8+incompatible

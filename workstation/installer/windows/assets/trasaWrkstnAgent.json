@@ -1,5 +1,5 @@
 {
-  "name": "trasaWrkstnAgent",
+  "name": "trasawrkstnagent",
   "description": "TRASA DEVICE HYGIENE AGENT",
   "path": "C:\\Program Files\\TrasaWrkstnAgent\\trasaWrkstnAgent.exe",
   "type": "stdio",
