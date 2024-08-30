@@ -38,8 +38,9 @@ jobs:
       - name: Build Package
         working-directory: ./workstation
         run: |
-          mkdir -p debian/trasaWrkstnAgent/usr/local/bin/
-          cp trasaWrkstnAgent debian/trasaWrkstnAgent/usr/local/bin/
+          mkdir -p installer/debian/trasaWrkstnAgent/usr/local/bin/ installer/debian/trasaWrkstnAgent/usr/lib/mozilla/native-messaging-hosts/
+          cp trasaWrkstnAgent installer/debian/trasaWrkstnAgent/usr/local/bin/
+          cp trasaWrkstnAgent.nix.json installer/debian/trasaWrkstnAgent/usr/lib/mozilla/native-messaging-hosts/trasawrkstnagent.json
           cd installer/debian && dpkg-deb --build trasaWrkstnAgent
 
       - name: Upload Artifact
