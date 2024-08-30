@@ -35,7 +35,7 @@ jobs:
 
       - name: Install npm packages
         working-directory: ./browser
-        run: node install --legacy-peer-deps
+        run: npm install --legacy-peer-deps
 
       - name: Build
         #TODO treat warning as errors
