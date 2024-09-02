@@ -44,10 +44,9 @@ jobs:
       #TODO treat warning as errors
       env:
         CI: false
+        NODE_OPTIONS: "--openssl-legacy-provider"
       working-directory: ./dashboard
       run: yarn build
-      env:
-        NODE_OPTIONS: "--openssl-legacy-provider"
 
     - name: Unit test
       working-directory: ./dashboard
