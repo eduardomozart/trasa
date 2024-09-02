@@ -31,8 +31,6 @@ jobs:
       uses: actions/setup-node@v2-beta
       with:
         node-version: '18'
-      env:
-        NODE_OPTIONS: "--openssl-legacy-provider"
 
     - name: Install Yarn
       run: npm install -g yarn
@@ -48,6 +46,8 @@ jobs:
         CI: false
       working-directory: ./dashboard
       run: yarn build
+      env:
+        NODE_OPTIONS: "--openssl-legacy-provider"
 
     - name: Unit test
       working-directory: ./dashboard
