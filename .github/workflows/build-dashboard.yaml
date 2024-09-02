@@ -31,6 +31,8 @@ jobs:
       uses: actions/setup-node@v2-beta
       with:
         node-version: '18'
+      env:
+        NODE_OPTIONS: "--openssl-legacy-provider"
 
     - name: Install Yarn
       run: npm install -g yarn
