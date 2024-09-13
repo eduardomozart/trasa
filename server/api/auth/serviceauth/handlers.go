@@ -88,8 +88,8 @@ func AgentLogin(w http.ResponseWriter, r *http.Request) {
 	authlog.UpdateService(service)
 	nativeLogEnabled = service.NativeLog
 
-	usernameExits := accessmap.Store.CheckIfPrivilegeExist(remoteLogin.User, service.OrgID, remoteLogin.ServiceID)
-	if service.Passthru == true && !usernameExits {
+	usernameExists := accessmap.Store.CheckIfPrivilegeExist(remoteLogin.User, service.OrgID, remoteLogin.ServiceID)
+	if service.Passthru == true && !usernameExists {
 		utils.TrasaResponse(w, 200, "success", "passthru authentication", "agent-login", nil)
 		return
 	}

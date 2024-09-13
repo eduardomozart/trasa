@@ -58,9 +58,9 @@ func RadiusLogin(w radius.ResponseWriter, r *radius.Request) {
 
 	userDetails, err := auth.Store.GetLoginDetails(trasaID, "domain")
 	if err != nil {
-		usernameExits := accessmap.Store.CheckIfPrivilegeExist(trasaID, service.OrgID, service.ID)
-		logrus.Trace("passthru ", service.Passthru, usernameExits)
-		if service.Passthru == true && !usernameExits {
+		usernameExists := accessmap.Store.CheckIfPrivilegeExist(trasaID, service.OrgID, service.ID)
+		logrus.Trace("passthru ", service.Passthru, usernameExists)
+		if service.Passthru == true && !usernameExists {
 			w.Write(r.Response(radius.CodeAccessAccept))
 			return
 		}
